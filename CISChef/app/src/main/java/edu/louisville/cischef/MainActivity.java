@@ -1,5 +1,7 @@
 package edu.louisville.cischef;
 
+import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.louisville.cischef.recipeList.RecipeListFragment;
+import edu.louisville.cischef.thread.ThreadFragment;
+import edu.louisville.cischef.topmenu.TopMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        loadFragment(new TopMenuFragment(), new RecipeListFragment());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadFragment(Fragment fragment2load, Fragment loadFragment2) {
 
+                getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContent,  loadFragment2)
+                .replace(R.id.fragmentMain, fragment2load)
+
+                .commit();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -45,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }/*else if (id==R.id.action_search){
+            loadFragment(new ThreadFragment());
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 }
