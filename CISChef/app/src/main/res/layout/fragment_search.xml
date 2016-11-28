@@ -6,23 +6,17 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="3"
+        android:columnCount="1"
         android:rowCount="1"
         android:textAlignment="center">
 
-        <Button
-            android:id="@+id/butsearch"
-            android:layout_gravity="center"
-            android:text="Search" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_bar"
+        android:text="Search"
+        />
 
-        <Button
-            android:id="@+id/butview"
-            android:layout_gravity="center"
-            android:text="View" />
-
-        <Button
-            android:id="@+id/butadd"
-            android:text="Add" />
     </GridLayout>
 
 </LinearLayout>
