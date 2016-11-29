@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import edu.louisville.cischef.R;
 import edu.louisville.cischef.recipeList.RecipeListFragment;
+import edu.louisville.cischef.search.SearchFragment;
 import edu.louisville.cischef.thread.ThreadFragment;
 
 /**
@@ -40,6 +41,13 @@ public class TopMenuFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 loadFragment(new RecipeListFragment());
+            }
+        });
+        Button butsearch = (Button) view.findViewById(R.id.butsearch);
+        butview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new SearchFragment());
             }
         });
     }

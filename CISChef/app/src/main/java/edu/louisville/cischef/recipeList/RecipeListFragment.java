@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.louisville.cischef.R;
 
 /**
@@ -13,11 +16,15 @@ import edu.louisville.cischef.R;
  */
 
 public class RecipeListFragment extends Fragment {
+    FirebaseDatabase firebaseDatabase =FirebaseDatabase.getInstance();
+    DatabaseReference list =firebaseDatabase.getReference().child("recipe");
+
     public RecipeListFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        View view= inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        return view;
     }
 }
