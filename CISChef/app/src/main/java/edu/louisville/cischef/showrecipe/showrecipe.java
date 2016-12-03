@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,15 @@ public class showrecipe extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("recipe");
 
+    private long recipeid2Delete;
+
+    public long getRecipeid2Delete() {
+        return recipeid2Delete;
+    }
+
+    public void setRecipeid2Delete(long recipeid2Delete) {
+        this.recipeid2Delete = recipeid2Delete;
+    }
 
     public showrecipe(){}
 
@@ -45,6 +55,7 @@ public class showrecipe extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_show_recipe, container, false);
         Query query = mRecipeReference.orderByChild("id").equalTo(recipeId);
         query.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Recipe recipe = null;
@@ -67,7 +78,35 @@ public class showrecipe extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+        Button butDelete =(Button) view.findViewById(R.id.butdelete);
+        butDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Query q = mRecipeReference.orderByChild("id").equalTo(recipeid2Delete);
+                q.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            Log.d(Constants.TAG, "Deleting:" + childSnapshot.getKey());
+                            childSnapshot.getRef().removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(Constants.TAG, "Error occured:" + databaseError);
+                    }
+
+                });
+//                TextView textView = (TextView)view.findViewById(R.id.txtViewDelMessage);
+//                textView.setText("Removed: " + recipeid2Delete);
+            }
+        });
+
+
 
         return view;
     }

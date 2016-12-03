@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="edu.louisville.cischef.thread.ThreadFragment"
+    >
 
     <TextView
         android:text="Title "
         android:layout_width="103dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/texttitle" />
 
     <EditText
         android:layout_width="match_parent"
@@ -17,33 +18,39 @@
         android:inputType="textPersonName"
         android:text=""
         android:ems="10"
-        android:id="@+id/editText" />
+        android:id="@+id/edittitle" />
 
     <TextView
         android:text="Message:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:id="@+id/textVmessage" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_weight="0.98" />
+        android:id="@+id/editmessage"
+        android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:layout_width="match_parent"
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/picture_frame"
-        android:id="@+id/imageButton" />
+        android:ems="10"
+        android:id="@+id/editauthor"
+        android:layout_weight="0.2" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editpic"
+        android:layout_weight="0.2" />
 
     <Button
         android:text="submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/butsubmit"
         android:elevation="0dp" />
 
 </LinearLayout>
