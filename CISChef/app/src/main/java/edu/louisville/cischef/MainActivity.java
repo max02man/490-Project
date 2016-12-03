@@ -35,13 +35,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadFragment(Fragment fragment2load, Fragment loadFragment2) {
-
+    public void loadFragment(Fragment fragment2load, Fragment loadFragment2) {
                 getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContent,  loadFragment2)
                 .replace(R.id.fragmentMain, fragment2load)
-
                 .commit();
     }
     @Override

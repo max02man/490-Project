@@ -44,7 +44,7 @@ public class TopMenuFragment extends Fragment{
             }
         });
         Button butsearch = (Button) view.findViewById(R.id.butsearch);
-        butview.setOnClickListener(new View.OnClickListener() {
+        butsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loadFragment(new SearchFragment());
