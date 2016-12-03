@@ -1,13 +1,31 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wesleyreisz.collegefootballplayoffteams.fragment.ShowTeamFragment">
+    tools:context="edu.louisville.cischef.showrecipe.showrecipe"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/titlename"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Show Team Fragment" />
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:background="@android:drawable/title_bar"
+        android:textAlignment="center"
+         />
+    <TextView
+        android:id="@+id/writer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:background="@color/errorColor" />
 
-</FrameLayout>
+
+
+</LinearLayout>
