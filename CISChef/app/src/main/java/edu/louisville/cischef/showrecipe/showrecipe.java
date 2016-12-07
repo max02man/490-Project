@@ -80,31 +80,31 @@ public class showrecipe extends Fragment {
             }
 
         });
-        Button butDelete =(Button) view.findViewById(R.id.butdelete);
-        butDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Query q = mRecipeReference.orderByChild("id").equalTo(recipeid2Delete);
-                q.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                            Log.d(Constants.TAG, "Deleting:" + childSnapshot.getKey());
-                            childSnapshot.getRef().removeValue();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(Constants.TAG, "Error occured:" + databaseError);
-                    }
-
-                });
+//        Button butDelete =(Button) view.findViewById(R.id.butdelete);
+//        butDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Query q = mRecipeReference.orderByChild("id").equalTo(recipeid2Delete);
+//                q.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+//                            Log.d(Constants.TAG, "Deleting:" + childSnapshot.getKey());
+//                            childSnapshot.getRef().removeValue();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.d(Constants.TAG, "Error occured:" + databaseError);
+//                    }
+//
+//                });
 //                TextView textView = (TextView)view.findViewById(R.id.txtViewDelMessage);
 //                textView.setText("Removed: " + recipeid2Delete);
-            }
-        });
+//            }
+//        });
 
 
 

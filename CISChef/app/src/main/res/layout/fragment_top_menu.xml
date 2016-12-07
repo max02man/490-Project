@@ -11,9 +11,10 @@
         android:textAlignment="center">
 
         <Button
-            android:id="@+id/butsearch"
+            android:id="@+id/fav_bar"
+            android:text="Favorite"
             android:layout_gravity="center"
-            android:text="Search" />
+           />
 
         <Button
             android:id="@+id/butview"

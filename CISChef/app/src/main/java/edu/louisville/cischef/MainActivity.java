@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.louisville.cischef.recipeList.RecipeListFragment;
-import edu.louisville.cischef.thread.ThreadFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
 public class MainActivity extends AppCompatActivity {

@@ -5,19 +5,15 @@
     android:layout_height="match_parent">
 
 
-    <EditText
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/search_bar"
-        android:text="Search"
-
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="Favorite"
         />
 
-    <ImageButton app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 
 
 </LinearLayout>

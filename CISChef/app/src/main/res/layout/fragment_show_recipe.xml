@@ -28,13 +28,23 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:background="@color/errorColor" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <Button
         android:text="Delete Recipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/butdelete" />
-
+        android:id="@+id/butdelete"
+        android:layout_weight="0.5"/>
+    <Button
+        android:text="Favorite The Recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_gravity="right"
+        android:id="@+id/butfav" />
+</LinearLayout>
 
 </LinearLayout>
 </ScrollView>

@@ -9,9 +9,9 @@ import android.widget.Button;
 
 
 import edu.louisville.cischef.R;
+import edu.louisville.cischef.add.AddFragment;
+import edu.louisville.cischef.favorite.FavoriteFragment;
 import edu.louisville.cischef.recipeList.RecipeListFragment;
-import edu.louisville.cischef.search.SearchFragment;
-import edu.louisville.cischef.thread.ThreadFragment;
 
 /**
  * Created by Max02man on 11/24/2016.
@@ -33,7 +33,7 @@ public class TopMenuFragment extends Fragment{
         butadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new ThreadFragment());
+                loadFragment(new AddFragment());
             }
         });
         Button butview = (Button) view.findViewById(R.id.butview);
@@ -43,11 +43,11 @@ public class TopMenuFragment extends Fragment{
                 loadFragment(new RecipeListFragment());
             }
         });
-        Button butsearch = (Button) view.findViewById(R.id.butsearch);
+        Button butsearch = (Button) view.findViewById(R.id.fav_bar);
         butsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new SearchFragment());
+                loadFragment(new FavoriteFragment());
             }
         });
     }
