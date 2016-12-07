@@ -24,27 +24,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.louisville.cischef.Constants;
+import edu.louisville.cischef.DelFragment;
 import edu.louisville.cischef.R;
 import edu.louisville.cischef.Recipe;
+import edu.louisville.cischef.recipeList.RecipeListFragment;
 
 /**
  * Created by Max02man on 12/2/2016.
  */
 
 public class showrecipe extends Fragment {
-    private long recipeId;
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("recipe");
 
-    private long recipeid2Delete;
-
-    public long getRecipeid2Delete() {
-        return recipeid2Delete;
+    private long recipeId;
+    public long getRecipeId() {
+        return recipeId;
     }
-
-    public void setRecipeid2Delete(long recipeid2Delete) {
-        this.recipeid2Delete = recipeid2Delete;
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
     }
 
     public showrecipe(){}
@@ -58,7 +56,7 @@ public class showrecipe extends Fragment {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Recipe recipe = null;
+               Recipe recipe = new Recipe();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                     recipe = childSnapshot.getValue(Recipe.class);
                 }
@@ -80,42 +78,24 @@ public class showrecipe extends Fragment {
             }
 
         });
-//        Button butDelete =(Button) view.findViewById(R.id.butdelete);
-//        butDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Query q = mRecipeReference.orderByChild("id").equalTo(recipeid2Delete);
-//                q.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-//                            Log.d(Constants.TAG, "Deleting:" + childSnapshot.getKey());
-//                            childSnapshot.getRef().removeValue();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.d(Constants.TAG, "Error occured:" + databaseError);
-//                    }
-//
-//                });
-//                TextView textView = (TextView)view.findViewById(R.id.txtViewDelMessage);
-//                textView.setText("Removed: " + recipeid2Delete);
-//            }
-//        });
+        Button butDelete =(Button) view.findViewById(R.id.butdelete);
+        butDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                DelFragment fragment = new DelFragment();
+                fragment.setRecipeId(recipeId);
+                getActivity().getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContent, fragment)
+                        .commit();
+
+            }
+        });
 
 
         return view;
+
     }
 
-    public long getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(long recipeId) {
-        this.recipeId = recipeId;
-    }
 }
