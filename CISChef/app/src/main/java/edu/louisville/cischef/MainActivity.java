@@ -1,15 +1,23 @@
 package edu.louisville.cischef;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import edu.louisville.cischef.recipeList.RecipeListFragment;
+import edu.louisville.cischef.signIn.signInFragment;
+import edu.louisville.cischef.topmenu.TopMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private String authenticatedUser ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        loadFragment(new TopMenuFragment(), new RecipeListFragment());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void loadFragment(Fragment fragment2load, Fragment loadFragment2) {
+                getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContent,  loadFragment2)
+                .replace(R.id.fragmentMain, fragment2load)
+                .commit();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,10 +62,19 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_home) {
+            loadFragment(new TopMenuFragment(), new RecipeListFragment());
         }
-
+        else if (id == R.id.action_sign_in) {
+            loadFragment(new TopMenuFragment(), new signInFragment());
+        }
+        else if (id == R.id.action_sign_out) {
+            FirebaseAuth.getInstance().signOut();
+        }
+        /*else if (id==R.id.action_search){
+            loadFragment(new ThreadFragment());
+        }
+*/
         return super.onOptionsItemSelected(item);
     }
 }
