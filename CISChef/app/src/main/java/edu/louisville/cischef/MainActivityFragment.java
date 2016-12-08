@@ -1,22 +1,22 @@
 package edu.louisville.cischef;
 
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.app.Fragment;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Created by Max02man on 11/28/2016.
  */
-public class MainActivityFragment extends Fragment {
 
-    public MainActivityFragment() {
-    }
+public class MainActivityFragment extends Fragment{
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+    public MainActivityFragment(){
+
     }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.activity_main, container, false);
+//        listviwe listviwe=(listview) view.findViewById(())
+//
+//
+//        return view;
+//    }
 }
