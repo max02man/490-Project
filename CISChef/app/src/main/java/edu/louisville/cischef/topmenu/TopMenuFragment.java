@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import edu.louisville.cischef.R;
 import edu.louisville.cischef.add.AddFragment;
@@ -28,25 +32,43 @@ public class TopMenuFragment extends Fragment{
     }
 
     private void wireEvents(View view) {
+
         Button butadd = (Button)view.findViewById(R.id.butadd);
         butadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new AddFragment());
+                // blocks unauthenticated users from add page
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user != null) {
+                    loadFragment(new AddFragment());
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(),"You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         Button butview = (Button) view.findViewById(R.id.butview);
         butview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new RecipeListFragment());
+
+                    loadFragment(new RecipeListFragment());
+
+
             }
         });
-        Button butsearch = (Button) view.findViewById(R.id.fav_bar);
-        butsearch.setOnClickListener(new View.OnClickListener() {
+        Button butfav = (Button) view.findViewById(R.id.fav_bar);
+        butfav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new FavoriteFragment());
+                // blocks unathenticated users from accessing favorites page
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user !=null) {
+                    loadFragment(new FavoriteFragment());
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(),"You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

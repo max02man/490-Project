@@ -6,18 +6,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import edu.louisville.cischef.recipeList.RecipeListFragment;
 import edu.louisville.cischef.signIn.signInFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private String authenticatedUser ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        MenuItem signin = menu.findItem(R.id.action_sign_in);
+        MenuItem signout = menu.findItem(R.id.action_sign_out);
+        if (user != null) {
+            signin.setVisible(false);
+            signout.setVisible(true);
+        } else {
+            signin.setVisible(true);
+            signout.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -69,12 +88,19 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(new TopMenuFragment(), new signInFragment());
         }
         else if (id == R.id.action_sign_out) {
-            FirebaseAuth.getInstance().signOut();
+            // signs current user out and returns them to the home screen
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if(user != null) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "User Signed Out: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                Log.d(Constants.TAG, "signOut:" + user.getUid());
+                loadFragment(new TopMenuFragment(), new RecipeListFragment());
+            }
+
         }
-        /*else if (id==R.id.action_search){
-            loadFragment(new ThreadFragment());
-        }
-*/
+       /* else if (id==R.id.action_search){
+        }*/
+
         return super.onOptionsItemSelected(item);
     }
 }
