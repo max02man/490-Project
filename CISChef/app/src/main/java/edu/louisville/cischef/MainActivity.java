@@ -17,7 +17,7 @@ import edu.louisville.cischef.signIn.signInFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private String authenticatedUser = "";
+    private String authenticatedUser ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
