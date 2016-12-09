@@ -1,10 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:isScrollContainer="false" >
 
-    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:text="Title "
@@ -16,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text=""
         android:ems="10"
         android:id="@+id/edittitle" />
 
@@ -26,25 +28,48 @@
         android:layout_height="wrap_content"
         android:id="@+id/textVmessage" />
 
+
     <EditText
         android:layout_width="match_parent"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editmessage"
         android:layout_height="wrap_content" />
-
-    <EditText
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0">
+    <TextView
+        android:text="Author Name:"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:id="@+id/textauthor" />
+    <EditText
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/editauthor"
-        android:layout_weight="0.2" />
-    <EditText
+        android:layout_weight="0.8" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0">
+    <TextView
+        android:text="Picture URL:"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:id="@+id/textpic" />
+    <EditText
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/editpic"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.8" />
+    </LinearLayout>
 
     <Button
         android:text="submit"
@@ -52,5 +77,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/butsubmit"
         android:elevation="0dp" />
-
 </LinearLayout>
+</ScrollView>

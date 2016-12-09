@@ -82,13 +82,13 @@ public class AddFragment extends Fragment {
         butSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if (editTitle != null && editMessage != null && editAuthor != null && editPic != null) {
+//                if (editTitle == null && editMessage == null && editAuthor == null) {
                 String title = editTitle.getText().toString();
                 String msg = editMessage.getText().toString();
                 String author = editAuthor.getText().toString();
 
-                if(!(TextUtils.isEmpty(title) &&
-                        TextUtils.isEmpty(msg) &&
+                if(!(TextUtils.isEmpty(title) ||
+                        TextUtils.isEmpty(msg) ||
                         TextUtils.isEmpty(author))){
                     String key = mRecipeReference.push().getKey();
                     Recipe recipe = new Recipe(

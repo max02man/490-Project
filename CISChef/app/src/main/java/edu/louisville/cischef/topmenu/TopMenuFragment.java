@@ -22,6 +22,7 @@ import edu.louisville.cischef.recipeList.RecipeListFragment;
 
 public class TopMenuFragment extends Fragment{
     public TopMenuFragment(){}
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,21 +33,22 @@ public class TopMenuFragment extends Fragment{
     }
 
     private void wireEvents(View view) {
+        if(user != null) {
+            Button butadd = (Button) view.findViewById(R.id.butadd);
+            butadd.setVisibility(view.VISIBLE);
+            butadd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // blocks unauthenticated users from add page
+                    if (user != null) {
+                        loadFragment(new AddFragment());
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
-        Button butadd = (Button)view.findViewById(R.id.butadd);
-        butadd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // blocks unauthenticated users from add page
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user != null) {
-                    loadFragment(new AddFragment());
-                }
-                else {
-                    Toast.makeText(getActivity().getApplicationContext(),"You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         Button butview = (Button) view.findViewById(R.id.butview);
         butview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,30 +56,30 @@ public class TopMenuFragment extends Fragment{
 
                     loadFragment(new RecipeListFragment());
 
+            }
+        });
 
-            }
-        });
-        Button butfav = (Button) view.findViewById(R.id.fav_bar);
-        butfav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // blocks unathenticated users from accessing favorites page
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user !=null) {
-                    loadFragment(new FavoriteFragment());
+        if(user !=null) {
+            Button butfav = (Button) view.findViewById(R.id.fav_bar);
+            butfav.setVisibility(view.VISIBLE);
+            butfav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // blocks unathenticated users from accessing favorites page
+                    if (user != null) {
+                        loadFragment(new FavoriteFragment());
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getActivity().getApplicationContext(),"You must be signed in to use this feature", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+            });
+        }
     }
 
     private void loadFragment(Fragment fragment2load) {
 
         getActivity().getFragmentManager()
                 .beginTransaction()
-//                .replace(R.id.fragmentContent, new RecipeListFragment())
                 .replace(R.id.fragmentContent, fragment2load)
 
                 .commit();
