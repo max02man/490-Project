@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.louisville.cischef.Constants;
 import edu.louisville.cischef.MainActivity;
@@ -78,6 +82,7 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
 
     }
 
+    // Method that actually creates account through Firebase
     private void createUser(){
         pb.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(mTextEmail.getText().toString(), mTextPassword.getText().toString())
@@ -96,10 +101,27 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        createUser();
-
+        // logic that stops bad submissions
+        Pattern pattern = Pattern.compile("[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}");
+        Matcher matcher = pattern.matcher(mTextEmail.getText().toString().toUpperCase());
+        if(view.getId() == R.id.btnCreateAccount){
+            if(TextUtils.isEmpty(mTextEmail.getText())) {
+                Toast.makeText(getActivity().getApplicationContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
+            }
+            else if(!matcher.matches()){
+                Toast.makeText(getActivity().getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            }
+            else if(mTextPassword.length()<6){
+                Toast.makeText(getActivity().getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
+            }
+            else
+                createUser();
+        }
     }
 
+
+
+    // listens for a sign in and returns user to home screen when sign in occurs
     private void createAuthListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -110,8 +132,6 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
 
                     loadFragment(new TopMenuFragment(), new RecipeListFragment());
 
-                } else {
-                    Log.d(Constants.TAG, "onAuthStateChagned:signed_out");
                 }
             }
         };

@@ -6,5 +6,4 @@ package edu.louisville.cischef;
 
 public class Constants {
     public static final String TAG= "CFP";
-    public static final String AUTH_VAL = "isAuth";
 }
