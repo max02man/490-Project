@@ -23,15 +23,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/textEmail"
+            android:id="@+id/textUsername"
             android:hint="Username"
             android:textSize="20sp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/textEmail"
+            android:hint="Email"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
             android:id="@+id/textPassword"
-            android:hint="password"
+            android:hint="Password"
             android:textSize="20sp"
             android:inputType="textPassword"
             android:gravity="center_horizontal"

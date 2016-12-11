@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-       /* else if (id==R.id.action_search){
-        }*/
 
         return super.onOptionsItemSelected(item);
     }

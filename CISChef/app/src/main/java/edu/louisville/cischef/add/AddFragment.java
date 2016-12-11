@@ -30,9 +30,10 @@ import edu.louisville.cischef.recipeList.RecipeListFragment;
 public class AddFragment extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("recipe");
+
     Random r = new Random();
     int rondomNumber = r.nextInt();
-    boolean threadNotComplete=false;
+
     public AddFragment(){}
 
     @Override
