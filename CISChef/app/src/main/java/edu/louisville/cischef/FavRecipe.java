@@ -42,8 +42,8 @@ public class FavRecipe {
     public String toString(){
         return "edu.louisville.cischef.FavRecipe{" +
                 '{' +
-                ", userid='" + userid +
-                "id=" + id + '\'' +
+                "userid=" + userid +
+                ", id='" + id + '\'' +
                 ", Title='" + title + '\'' +
                 ", picture='" + picture + '\'' +
                 ", Message='" + message + '\'' +

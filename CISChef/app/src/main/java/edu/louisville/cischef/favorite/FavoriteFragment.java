@@ -18,9 +18,11 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.UnknownServiceException;
 import java.util.ArrayList;
@@ -50,27 +52,36 @@ public class FavoriteFragment extends Fragment {
     ListView recipelistView;
     ListAdapter recipelistAdapter;
     HashMap<Integer,Long> reciprMap = new HashMap<>();
-
+    boolean www=false;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_favorite, container, false);
         reciprMap = new HashMap<>();
         recipelistView =(ListView) view.findViewById(R.id.list2);
-        recipelistAdapter= new FirebaseListAdapter<Recipe>(getActivity(),Recipe.class, R.layout.recipe_layout,mRecipeReference) {
-
+        recipelistAdapter= new FirebaseListAdapter<FavRecipe>(getActivity(),FavRecipe.class, R.layout.recipe_layout,mRecipeReference) {
 
                 @Override
-            protected void populateView(View v, Recipe model, int position) {
-                Log.d(Constants.TAG,model.toString());
-                TextView recpieName = (TextView)v.findViewById(R.id.recpieName);
-                recpieName.setText(model.getTitle());
-                TextView authorName = (TextView)v.findViewById(R.id.authorName);
-                authorName.setText(model.getAuthor());
-                reciprMap.put(position,model.getId());
+            protected void populateView(View v, FavRecipe model, int position) {
+                    String ttt= model.getUserid().toString();
+                    String userid= user.getUid().toString();
 
+                    if (ttt.equals(userid)) {
+                        Log.d(Constants.TAG, model.toString());
+                        TextView recpieName = (TextView) v.findViewById(R.id.recpieName);
+                        recpieName.setText(model.getTitle());
+                        TextView authorName = (TextView) v.findViewById(R.id.authorName);
+                        authorName.setText(model.getAuthor());
+                    }
+                    else {
+                        TextView recpieName = (TextView) v.findViewById(R.id.recpieName);
+                            recpieName.setVisibility(View.GONE);
+                        TextView authorName = (TextView) v.findViewById(R.id.authorName);
+                        authorName.setVisibility(View.GONE);
+                    }
+                    reciprMap.put(position, model.getId());
+                    listofIds.add(position,model.getId());
 
-                listofIds.add(position,model.getId());
             }
 
         };

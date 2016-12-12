@@ -19,6 +19,8 @@ import edu.louisville.cischef.recipeList.RecipeListFragment;
 import edu.louisville.cischef.signIn.signInFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
+import static edu.louisville.cischef.R.drawable.ic_action_name;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setLogo(ic_action_name);
         setSupportActionBar(toolbar);
 
         loadFragment(new TopMenuFragment(), new RecipeListFragment());
