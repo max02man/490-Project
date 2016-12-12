@@ -1,8 +1,6 @@
 package edu.louisville.cischef.signIn;
 
 import android.app.Fragment;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,13 +19,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.louisville.cischef.Constants;
-import edu.louisville.cischef.MainActivity;
 import edu.louisville.cischef.R;
+import edu.louisville.cischef.User;
 import edu.louisville.cischef.recipeList.RecipeListFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
@@ -36,13 +39,12 @@ import edu.louisville.cischef.topmenu.TopMenuFragment;
  * Created by nyelo on 12/7/2016.
  */
 
-public class CreateAccountFragment extends Fragment implements View.OnClickListener{
-
-   private FirebaseAuth.AuthStateListener mAuthListener;
+public class CreateAccountFragment extends Fragment {
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-
     EditText mTextEmail;
     EditText mTextPassword;
+    EditText mTextUsername;
     ProgressBar pb;
 
     @Nullable
@@ -54,7 +56,7 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
 
         createAuthListener();
 
-
+        mTextUsername = (EditText)view.findViewById(R.id.textUsername);
         mTextEmail = (EditText)view.findViewById(R.id.textEmail);
         mTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -74,12 +76,36 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
                     mTextPassword.setError("Password must be at least 6 characters");
             }
         });
+        pb=(ProgressBar)view.findViewById(R.id.progress_bar);
         Button btnSignIn = (Button)view.findViewById(R.id.btnCreateAccount);
-        btnSignIn.setOnClickListener(this);
-        pb = (ProgressBar)view.findViewById(R.id.progress_bar);
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // logic that stops bad submissions
+                Pattern pattern = Pattern.compile("[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}");
+                Matcher matcher = pattern.matcher(mTextEmail.getText().toString().toUpperCase());
+                if(view.getId() == R.id.btnCreateAccount){
+                    if(TextUtils.isEmpty(mTextEmail.getText())) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(!matcher.matches()){
+                        Toast.makeText(getActivity().getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(mTextPassword.length()<6){
+                        Toast.makeText(getActivity().getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        createUser();
+
+                    }
+
+                }
+
+            }
+        });
 
         return view;
-
     }
 
     // Method that actually creates account through Firebase
@@ -90,6 +116,7 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(Constants.TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
                         pb.setVisibility(View.INVISIBLE);
                         if (!task.isSuccessful()) {
                             Toast.makeText(getActivity().getApplicationContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
@@ -97,29 +124,6 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
                     }
                 }));
     }
-
-
-    @Override
-    public void onClick(View view) {
-        // logic that stops bad submissions
-        Pattern pattern = Pattern.compile("[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}");
-        Matcher matcher = pattern.matcher(mTextEmail.getText().toString().toUpperCase());
-        if(view.getId() == R.id.btnCreateAccount){
-            if(TextUtils.isEmpty(mTextEmail.getText())) {
-                Toast.makeText(getActivity().getApplicationContext(), "Please enter an email address", Toast.LENGTH_SHORT).show();
-            }
-            else if(!matcher.matches()){
-                Toast.makeText(getActivity().getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-            }
-            else if(mTextPassword.length()<6){
-                Toast.makeText(getActivity().getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
-            }
-            else
-                createUser();
-        }
-    }
-
-
 
     // listens for a sign in and returns user to home screen when sign in occurs
     private void createAuthListener() {
@@ -129,6 +133,12 @@ public class CreateAccountFragment extends Fragment implements View.OnClickListe
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d(Constants.TAG, "onAuthStateChagned:signed_in:" + user.getUid());
+                    //update the username
+                    if(user!=null) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(mTextUsername.getText().toString()).build();
+                        user.updateProfile(profileUpdates);
+                    }
 
                     loadFragment(new TopMenuFragment(), new RecipeListFragment());
 

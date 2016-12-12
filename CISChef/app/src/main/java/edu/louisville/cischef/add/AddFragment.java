@@ -9,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,9 +33,10 @@ import edu.louisville.cischef.recipeList.RecipeListFragment;
 public class AddFragment extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("recipe");
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Random r = new Random();
     int rondomNumber = r.nextInt();
-    boolean threadNotComplete=false;
+
     public AddFragment(){}
 
     @Override
@@ -69,6 +73,7 @@ public class AddFragment extends Fragment {
         });
 
         final EditText editAuthor = (EditText)view.findViewById(R.id.editauthor);
+        editAuthor.setText(user.getDisplayName());
         editPic.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange (View view, boolean b){
@@ -77,19 +82,17 @@ public class AddFragment extends Fragment {
             }
         });
 
-
         Button butSubmit =(Button) view.findViewById(R.id.butsubmit);
         butSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if (editTitle != null && editMessage != null && editAuthor != null && editPic != null) {
                 String title = editTitle.getText().toString();
                 String msg = editMessage.getText().toString();
                 String author = editAuthor.getText().toString();
 
-                if(!(TextUtils.isEmpty(title) &&
-                        TextUtils.isEmpty(msg) &&
-                        TextUtils.isEmpty(author))){
+                if(!(TextUtils.isEmpty(title) ||
+                        TextUtils.isEmpty(msg) ||
+                TextUtils.isEmpty((author)))){
                     String key = mRecipeReference.push().getKey();
                     Recipe recipe = new Recipe(
                             rondomNumber,

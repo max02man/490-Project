@@ -19,6 +19,8 @@ import edu.louisville.cischef.recipeList.RecipeListFragment;
 import edu.louisville.cischef.signIn.signInFragment;
 import edu.louisville.cischef.topmenu.TopMenuFragment;
 
+import static edu.louisville.cischef.R.drawable.ic_action_name;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -28,18 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setLogo(ic_action_name);
         setSupportActionBar(toolbar);
 
         loadFragment(new TopMenuFragment(), new RecipeListFragment());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
     public void loadFragment(Fragment fragment2load, Fragment loadFragment2) {
                 getFragmentManager()
@@ -98,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-       /* else if (id==R.id.action_search){
-        }*/
 
         return super.onOptionsItemSelected(item);
     }

@@ -11,7 +11,7 @@
         android:id="@+id/txtTitle"
         android:textSize="30sp"
         android:paddingBottom="30dp"
-        android:text="Create New Account"
+        android:text="SIGN UP"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -23,15 +23,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/textEmail"
+            android:id="@+id/textUsername"
             android:hint="Username"
             android:textSize="20sp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/textEmail"
+            android:hint="Email"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
             android:id="@+id/textPassword"
-            android:hint="password"
+            android:hint="Password"
             android:textSize="20sp"
             android:inputType="textPassword"
             android:gravity="center_horizontal"
@@ -39,7 +46,7 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btnCreateAccount"
-            android:text="Login"
+            android:text="SIGN UP"
             android:layout_marginTop="20dp"
             android:padding="20dp"
             android:gravity="center_horizontal"

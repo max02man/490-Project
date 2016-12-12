@@ -13,6 +13,7 @@
         <Button
             android:id="@+id/fav_bar"
             android:text="Favorite"
+            android:visibility="invisible"
             android:layout_gravity="center"
            />
 
@@ -23,6 +24,7 @@
 
         <Button
             android:id="@+id/butadd"
+            android:visibility="invisible"
             android:text="Add" />
     </GridLayout>
 
