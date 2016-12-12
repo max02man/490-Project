@@ -3,11 +3,13 @@ package edu.louisville.cischef.favorite;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -39,11 +41,20 @@ import edu.louisville.cischef.showrecipe.ShowRecipeFav;
 import edu.louisville.cischef.showrecipe.showrecipe;
 import edu.louisville.cischef.signIn.CreateAccountFragment;
 
+
 /**
  * Created by Max02man on 12/6/2016.
  */
 
 public class FavoriteFragment extends Fragment {
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mRecipeReference =mRootRef.child("recipe");
+
+    List<Long> listofIds =new ArrayList<Long>();
+    ListView favlistView;
+    ListAdapter favlistAdapter;
+    HashMap<Integer,Long> favMap = new HashMap<>();
     public FavoriteFragment(){}
     DatabaseReference mRootRef =FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("favorite");
@@ -95,6 +106,7 @@ public class FavoriteFragment extends Fragment {
 
                 ShowRecipeFav showrecipe = new ShowRecipeFav();
                 showrecipe.setRecipeId(reciprMap.get(position));
+
                 Log.d(Constants.TAG, "recipeid: " + showrecipe.getRecipeId());
 
                 getActivity().getFragmentManager()
@@ -102,6 +114,7 @@ public class FavoriteFragment extends Fragment {
                         .replace(R.id.fragmentContent, showrecipe)
 
                         .commit();
+
             }
         });
         return view;

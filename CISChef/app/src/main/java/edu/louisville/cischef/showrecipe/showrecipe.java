@@ -2,12 +2,14 @@ package edu.louisville.cischef.showrecipe;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+
 import edu.louisville.cischef.Constants;
 import edu.louisville.cischef.Delete.DeleteFragment;
 import edu.louisville.cischef.FavRecipe;
@@ -30,6 +33,7 @@ import edu.louisville.cischef.R;
 import edu.louisville.cischef.Recipe;
 import edu.louisville.cischef.favorite.FavoriteFragment;
 import edu.louisville.cischef.signIn.CreateAccountFragment;
+
 
 /**
  * Created by Max02man on 12/2/2016.
@@ -92,6 +96,7 @@ public class showrecipe extends Fragment {
         Button butDelete =(Button) view.findViewById(R.id.butdelete);
             //Hide the button when the user unathenticated
          butDelete.setVisibility(view.VISIBLE);
+
         butDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,6 +148,7 @@ public class showrecipe extends Fragment {
                 }
             });
         }
+
 
 
         return view;
