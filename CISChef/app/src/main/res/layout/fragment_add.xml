@@ -21,7 +21,21 @@
         android:id="@+id/edittitle" />
 
     <TextView
-        android:text="Message:"
+        android:text="Author:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textVauthor" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editauthor"
+        android:layout_weight="0.2" />
+
+    <TextView
+        android:text="Recipe:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textVmessage" />
@@ -33,12 +47,6 @@
         android:id="@+id/editmessage"
         android:layout_height="wrap_content" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/editauthor"
-        android:layout_weight="0.2" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
