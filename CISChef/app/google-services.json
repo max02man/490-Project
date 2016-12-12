@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "110228598739",
-    "firebase_url": "https://cis-chef-d0e60.firebaseio.com",
-    "project_id": "cis-chef-d0e60",
-    "storage_bucket": "cis-chef-d0e60.appspot.com"
+    "project_number": "1056523233333",
+    "firebase_url": "https://cis-chef.firebaseio.com",
+    "project_id": "cis-chef",
+    "storage_bucket": "cis-chef.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:110228598739:android:e96776f2ae6df05b",
+        "mobilesdk_app_id": "1:1056523233333:android:e96776f2ae6df05b",
         "android_client_info": {
           "package_name": "edu.louisville.cischef"
         }
       },
       "oauth_client": [
         {
-          "client_id": "110228598739-cjfmr33k26roahsjfc9junrof58gnqtr.apps.googleusercontent.com",
+          "client_id": "1056523233333-qq6obd50r41pv4a4akr0kqa7c8cnfc22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.louisville.cischef",
+            "certificate_hash": "3EBA603C62E7F583F49D2309321FE27016C598B4"
+          }
+        },
+        {
+          "client_id": "1056523233333-ah12gknrnif09tmm3ivdojccurm7rako.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBpibA2T6FPGpuyUaI9uX5tw_y0dpubYVw"
+          "current_key": "AIzaSyCTnVJWHMfwMCiCvmUPnsig7Mp-U25HUpY"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056523233333-ah12gknrnif09tmm3ivdojccurm7rako.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
