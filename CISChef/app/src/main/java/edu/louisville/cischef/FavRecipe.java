@@ -7,24 +7,25 @@ package edu.louisville.cischef;
 public class FavRecipe {
 
     private long id;
+    private String userid;
     private String title;
     private String picture;
     private String message;
     private String author;
-    private String username;
 
     public FavRecipe(){};
 
-    public FavRecipe(long id, String title, String picture, String username,String message, String author){
-
+    public FavRecipe(String userid, long id, String title, String picture,String message, String author){
+        this.userid=userid;
         this.id =id;
         this.title= title;
         this.picture= picture;
         this.message= message;
         this.author=author;
-        this.username=username;
     }
 
+    public String getUserid(){return userid;}
+    public void setUserid(String userid){this.userid =userid;}
     public long getId(){return id;}
     public void setId(long id){this.id =id;}
     public String getTitle(){return title;}
@@ -35,18 +36,19 @@ public class FavRecipe {
     public void setMessage(String message){this.message =message;}
     public String getAuthor(){return author;}
     public void setAuthor(String author){this.author =author;}
-    public String getUsername(){return username;}
-    public void setUsername(String username){this.username =username;}
+
 
     @Override
     public String toString(){
         return "edu.louisville.cischef.FavRecipe{" +
-                "id=" + id +
+                '{' +
+                ", userid='" + userid +
+                "id=" + id + '\'' +
                 ", Title='" + title + '\'' +
                 ", picture='" + picture + '\'' +
                 ", Message='" + message + '\'' +
-                ", Username='" + username + '\'' +
                 ", Author='" + author +
+                '}' +
                 '}';
     }
 

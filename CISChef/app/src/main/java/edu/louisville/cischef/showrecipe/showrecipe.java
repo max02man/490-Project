@@ -19,11 +19,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import edu.louisville.cischef.Constants;
 import edu.louisville.cischef.Delete.DeleteFragment;
+import edu.louisville.cischef.FavRecipe;
 import edu.louisville.cischef.R;
 import edu.louisville.cischef.Recipe;
 import edu.louisville.cischef.favorite.FavoriteFragment;
+import edu.louisville.cischef.signIn.CreateAccountFragment;
 
 /**
  * Created by Max02man on 12/2/2016.
@@ -34,16 +40,13 @@ public class showrecipe extends Fragment {
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mRecipeReference =mRootRef.child("recipe");
+    DatabaseReference mRecipeReference1 =mRootRef.child("favorite");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private long recipeid2Delete;
 
-    public long getRecipeid2Delete() {
-        return recipeid2Delete;
-    }
+    Random r = new Random();
+    long rondomNumber = r.nextInt();
+    String title, pic, mesg, author;
 
-    public void setRecipeid2Delete(long recipeid2Delete) {
-        this.recipeid2Delete = recipeid2Delete;
-    }
 
     public showrecipe(){}
 
@@ -51,7 +54,7 @@ public class showrecipe extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_show_recipe, container, false);
-        Query query = mRecipeReference.orderByChild("id").equalTo(recipeId);
+        final Query query = mRecipeReference.orderByChild("id").equalTo(recipeId);
         query.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -60,6 +63,11 @@ public class showrecipe extends Fragment {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                     recipe = childSnapshot.getValue(Recipe.class);
                 }
+                title = recipe.getTitle();
+                pic =recipe.getPicture();
+                mesg=recipe.getMessage();
+                author=recipe.getAuthor();
+
                 TextView titleName = (TextView)view.findViewById(R.id.titlename);
                 titleName.setText(recipe.getTitle());
 
@@ -103,11 +111,33 @@ public class showrecipe extends Fragment {
             //Hide the button when the user unathenticated
             butfav.setVisibility(view.VISIBLE);
             butfav.setOnClickListener(new View.OnClickListener() {
+
+
                 @Override
                 public void onClick(View view) {
+
+
+                FavoriteFragment fragment = new FavoriteFragment();
+                Recipe recipe = new Recipe();
+                FavRecipe favRecipe =new FavRecipe(
+                        user.getUid(),
+                        rondomNumber,
+                        title,
+                        pic,
+                        mesg,
+                        author);
+
+                String key = mRecipeReference1.push().getKey();
+                Map<String, Object> updates = new HashMap<String, Object>();
+                updates.put(key, favRecipe);
+
+                Log.d(Constants.TAG, "favorite:" + favRecipe.toString());
+                mRecipeReference1.updateChildren(updates);
+
+
                     getActivity().getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragmentContent, new FavoriteFragment())
+                            .replace(R.id.fragmentContent, fragment)
                             .commit();
 
                 }

@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,14 +40,8 @@ import edu.louisville.cischef.topmenu.TopMenuFragment;
  */
 
 public class CreateAccountFragment extends Fragment {
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mRecipeReference =mRootRef.child("user");
-
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-
-    Random r = new Random();
-    int rondomNumber = r.nextInt();
     EditText mTextEmail;
     EditText mTextPassword;
     EditText mTextUsername;
@@ -101,25 +96,15 @@ public class CreateAccountFragment extends Fragment {
                         Toast.makeText(getActivity().getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
                     }
                     else {
-
-
                         createUser();
+
                     }
 
                 }
-                String key = mRecipeReference.push().getKey();
-                User user = new User(
-                        rondomNumber,
-                        mTextUsername.getText().toString(),
-                        mTextEmail.getText().toString()
 
-                );
-                Map<String, Object> updates = new HashMap<String, Object>();
-                updates.put(key, user);
-                Log.d(Constants.TAG, "user:" + user.toString());
-                mRecipeReference.updateChildren(updates);
             }
         });
+
         return view;
     }
 
@@ -131,6 +116,7 @@ public class CreateAccountFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(Constants.TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
                         pb.setVisibility(View.INVISIBLE);
                         if (!task.isSuccessful()) {
                             Toast.makeText(getActivity().getApplicationContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
@@ -147,6 +133,12 @@ public class CreateAccountFragment extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d(Constants.TAG, "onAuthStateChagned:signed_in:" + user.getUid());
+                    //update the username
+                    if(user!=null) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(mTextUsername.getText().toString()).build();
+                        user.updateProfile(profileUpdates);
+                    }
 
                     loadFragment(new TopMenuFragment(), new RecipeListFragment());
 
