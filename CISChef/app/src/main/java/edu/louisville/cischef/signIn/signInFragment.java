@@ -103,9 +103,6 @@ public class signInFragment extends Fragment implements View.OnClickListener {
                     Log.d(Constants.TAG, "onAuthStateChagned:signed_in:" + user.getUid());
                     loadFragment(new TopMenuFragment(), new RecipeListFragment());
                     Toast.makeText(getActivity().getApplicationContext(), "User Signed In: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Log.d(Constants.TAG, "onAuthStateChagned:signed_out");
                 }
             }
         };

@@ -118,6 +118,7 @@ public class CreateAccountFragment extends Fragment {
                         Log.d(Constants.TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
                         pb.setVisibility(View.INVISIBLE);
+
                         if (!task.isSuccessful()) {
                             Toast.makeText(getActivity().getApplicationContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -138,6 +139,7 @@ public class CreateAccountFragment extends Fragment {
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(mTextUsername.getText().toString()).build();
                         user.updateProfile(profileUpdates);
+                        Toast.makeText(getActivity().getApplicationContext(), "Account Created: " + user.getEmail(), Toast.LENGTH_SHORT).show();
                     }
 
                     loadFragment(new TopMenuFragment(), new RecipeListFragment());

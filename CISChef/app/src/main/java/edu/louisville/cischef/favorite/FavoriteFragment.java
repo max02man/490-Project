@@ -48,12 +48,6 @@ import edu.louisville.cischef.signIn.CreateAccountFragment;
 
 public class FavoriteFragment extends Fragment {
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mRecipeReference =mRootRef.child("recipe");
-
-    List<Long> listofIds =new ArrayList<Long>();
-    ListView favlistView;
-    ListAdapter favlistAdapter;
     HashMap<Integer,Long> favMap = new HashMap<>();
     public FavoriteFragment(){}
     DatabaseReference mRootRef =FirebaseDatabase.getInstance().getReference();
